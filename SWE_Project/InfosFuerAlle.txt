@@ -1,0 +1,21 @@
+@all: Passwort ist pw123
+
+@Edit-Form -- Borrow-Lend
+User-interface sollte rückmeldung über ausgeliehenes Geld/ gezahltes Geld geben
+
+@Main-Form
+Encryption-Decryption muss noch umgesetzt werden
+Bessere Formatierung für die Daten unbedingt nötig!!
+
+@edit-Form
+hab das Event btn_cancel geändert.
+
+Tobias: 
+Bei mehrmaligen betätigen der Buttons Sub... & Add... 
+wird der Betrag mehrmals geändert ohne jegliche Benachrichtigung.
+(erledigt)
+
+Bei der Übertragung des Betrags liegt ein Vorzeichenfehler zwischen 
+edit-Form und Main-Form vor. 
+(erledigt)
+Internen Klärung was positiv und was negativ ist!!!
