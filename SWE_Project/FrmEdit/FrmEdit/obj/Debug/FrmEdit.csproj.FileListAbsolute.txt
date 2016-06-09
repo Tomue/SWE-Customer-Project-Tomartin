@@ -19,3 +19,6 @@ C:\Users\tobia\Dropbox\swe\FrmEdit\FrmEdit\obj\Debug\FrmEdit.csproj.GenerateReso
 E:\FrmMain_LoginForm_PartPachler\FrmEdit\FrmEdit\bin\Debug\FrmEdit.exe.config
 E:\FrmMain_LoginForm_PartPachler\FrmEdit\FrmEdit\obj\Debug\FrmEdit.exe
 E:\FrmMain_LoginForm_PartPachler\FrmEdit\FrmEdit\obj\Debug\FrmEdit.pdb
+C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmEdit\FrmEdit\bin\Debug\FrmEdit.exe.config
+C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmEdit\FrmEdit\obj\Debug\FrmEdit.exe
+C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmEdit\FrmEdit\obj\Debug\FrmEdit.pdb
