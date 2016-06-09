@@ -63,7 +63,6 @@
     <Compile Include="FrmMainWindow.Designer.cs">
       <DependentUpon>FrmMainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyCrypto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmEdit.resx">
