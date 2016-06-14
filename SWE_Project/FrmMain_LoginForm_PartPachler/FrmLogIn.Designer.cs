@@ -39,7 +39,7 @@
             this.tbxPassword.Location = new System.Drawing.Point(12, 68);
             this.tbxPassword.Name = "tbxPassword";
             this.tbxPassword.Size = new System.Drawing.Size(318, 26);
-            this.tbxPassword.TabIndex = 0;
+            this.tbxPassword.TabIndex = 1;
             this.tbxPassword.UseSystemPasswordChar = true;
             // 
             // label1
@@ -48,7 +48,7 @@
             this.label1.Location = new System.Drawing.Point(13, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(260, 20);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Enter password to start Application:";
             // 
             // btnOK
@@ -67,7 +67,7 @@
             this.btnCancel.Location = new System.Drawing.Point(255, 119);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 33);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
