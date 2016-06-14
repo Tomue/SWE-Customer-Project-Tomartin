@@ -219,6 +219,7 @@ namespace FrmMain_LoginForm_PartPachler
                         break;
                 }
             }
+            // catches exceptions form class Customer
             catch (Exception excep)
             {
                 errorProvider1.SetError(goupBox1, excep.Message);
