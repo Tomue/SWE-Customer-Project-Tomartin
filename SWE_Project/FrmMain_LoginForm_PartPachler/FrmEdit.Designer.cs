@@ -35,16 +35,16 @@
             this.tbxLastname = new System.Windows.Forms.TextBox();
             this.labEMail = new System.Windows.Forms.Label();
             this.tbxEMail = new System.Windows.Forms.TextBox();
-            this.gb1 = new System.Windows.Forms.GroupBox();
-            this.gb2 = new System.Windows.Forms.GroupBox();
+            this.goupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.nud = new System.Windows.Forms.NumericUpDown();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSub = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.gb1.SuspendLayout();
-            this.gb2.SuspendLayout();
+            this.goupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -100,30 +100,30 @@
             this.tbxEMail.TabIndex = 4;
             this.tbxEMail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // gb1
+            // goupBox1
             // 
-            this.gb1.Controls.Add(this.labEMail);
-            this.gb1.Controls.Add(this.tbxEMail);
-            this.gb1.Controls.Add(this.labLastname);
-            this.gb1.Controls.Add(this.tbxLastname);
-            this.gb1.Controls.Add(this.labFistname);
-            this.gb1.Controls.Add(this.tbxFirstname);
-            this.gb1.Location = new System.Drawing.Point(52, 12);
-            this.gb1.Name = "gb1";
-            this.gb1.Size = new System.Drawing.Size(348, 132);
-            this.gb1.TabIndex = 6;
-            this.gb1.TabStop = false;
+            this.goupBox1.Controls.Add(this.labEMail);
+            this.goupBox1.Controls.Add(this.tbxEMail);
+            this.goupBox1.Controls.Add(this.labLastname);
+            this.goupBox1.Controls.Add(this.tbxLastname);
+            this.goupBox1.Controls.Add(this.labFistname);
+            this.goupBox1.Controls.Add(this.tbxFirstname);
+            this.goupBox1.Location = new System.Drawing.Point(52, 12);
+            this.goupBox1.Name = "goupBox1";
+            this.goupBox1.Size = new System.Drawing.Size(348, 132);
+            this.goupBox1.TabIndex = 6;
+            this.goupBox1.TabStop = false;
             // 
-            // gb2
+            // groupBox2
             // 
-            this.gb2.Controls.Add(this.nud);
-            this.gb2.Controls.Add(this.btnAdd);
-            this.gb2.Controls.Add(this.btnSub);
-            this.gb2.Location = new System.Drawing.Point(52, 150);
-            this.gb2.Name = "gb2";
-            this.gb2.Size = new System.Drawing.Size(348, 139);
-            this.gb2.TabIndex = 7;
-            this.gb2.TabStop = false;
+            this.groupBox2.Controls.Add(this.nud);
+            this.groupBox2.Controls.Add(this.btnAdd);
+            this.groupBox2.Controls.Add(this.btnSub);
+            this.groupBox2.Location = new System.Drawing.Point(52, 150);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(348, 139);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
             // 
             // nud
             // 
@@ -162,7 +162,6 @@
             // 
             // btnSave
             // 
-            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Location = new System.Drawing.Point(58, 295);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(167, 33);
@@ -194,14 +193,14 @@
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.gb2);
-            this.Controls.Add(this.gb1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.goupBox1);
             this.Name = "FrmEdit";
             this.Text = "Edit Window";
             this.Load += new System.EventHandler(this.FrmEdit_Load);
-            this.gb1.ResumeLayout(false);
-            this.gb1.PerformLayout();
-            this.gb2.ResumeLayout(false);
+            this.goupBox1.ResumeLayout(false);
+            this.goupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nud)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -216,8 +215,8 @@
         private System.Windows.Forms.TextBox tbxLastname;
         private System.Windows.Forms.Label labEMail;
         private System.Windows.Forms.TextBox tbxEMail;
-        private System.Windows.Forms.GroupBox gb1;
-        private System.Windows.Forms.GroupBox gb2;
+        private System.Windows.Forms.GroupBox goupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.NumericUpDown nud;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSub;

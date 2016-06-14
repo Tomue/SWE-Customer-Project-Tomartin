@@ -174,42 +174,42 @@ namespace FrmMain_LoginForm_PartPachler
                                         else
                                         {
                                             //Adress is Listed
-                                            errorCode = 8;
+                                            errorCode = -8;
                                         }
                                     }
                                     else
                                     {
-                                        errorCode = 7;
+                                        errorCode = -7;
                                     }
                                 }
                                 else
                                 {
-                                    errorCode = 6;
+                                    errorCode = -6;
                                 }
                             }
                             else
                             {
-                                errorCode = 5;
+                                errorCode = -5;
                             }
                         }
                         else
                         {
-                            errorCode = 4;
+                            errorCode = -4;
                         }
                     }
                     else
                     {
-                        errorCode = 3;
+                        errorCode = -3;
                     }
                 }
                 else
                 {
-                    errorCode = 2;
+                    errorCode = -2;
                 }
             }
             else
             {
-                errorCode = 1;
+                errorCode = -1;
             }
 
 
@@ -390,8 +390,5 @@ namespace FrmMain_LoginForm_PartPachler
         //Pachler Martin:
         #endregion
 
-        private void TestGithub2()
-        {
-        }
     }
 }
