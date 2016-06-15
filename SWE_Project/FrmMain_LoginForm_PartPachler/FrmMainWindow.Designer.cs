@@ -40,6 +40,7 @@
             this.cbxSearch = new System.Windows.Forms.ComboBox();
             this.dtpSearch = new System.Windows.Forms.DateTimePicker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tbxTimeToAddCus = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbxCustomer
@@ -151,11 +152,20 @@
             this.dtpSearch.Size = new System.Drawing.Size(262, 26);
             this.dtpSearch.TabIndex = 8;
             // 
+            // tbxTimeToAddCus
+            // 
+            this.tbxTimeToAddCus.Location = new System.Drawing.Point(802, 155);
+            this.tbxTimeToAddCus.Name = "tbxTimeToAddCus";
+            this.tbxTimeToAddCus.ReadOnly = true;
+            this.tbxTimeToAddCus.Size = new System.Drawing.Size(183, 26);
+            this.tbxTimeToAddCus.TabIndex = 9;
+            // 
             // FrmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1332, 518);
+            this.Controls.Add(this.tbxTimeToAddCus);
             this.Controls.Add(this.dtpSearch);
             this.Controls.Add(this.cbxSearch);
             this.Controls.Add(this.btnSearch);
@@ -187,6 +197,7 @@
         private System.Windows.Forms.ComboBox cbxSearch;
         private System.Windows.Forms.DateTimePicker dtpSearch;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox tbxTimeToAddCus;
     }
 }
 

@@ -7,17 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace FrmMain_LoginForm_PartPachler
 {
     public partial class FrmEdit : Form
     {
         #region Membervariables, Variables and Constants
+
         private List<Customer> customerList = new List<Customer>(); 
         private int mode = 0;
         private int customerID;
 
         private double amount = 0;
+        private int eMailErrorCode = 0;
         private bool btnAddClicked = false;
         private bool btnSubClicked = false;
         private string[] errormassages = new string[] { "E-Mail-Adress is valid",
@@ -28,9 +31,13 @@ namespace FrmMain_LoginForm_PartPachler
             "There is no character before the '@'",
             "There is a '.' at the start, end or next to the '@'",
             "Includes invalid characters"};
+
+        Stopwatch timeForNewCusEDITload = new Stopwatch();
+        Stopwatch timeForNewCusEDITsave = new Stopwatch();
         #endregion
 
         #region Properties
+
         public TextBox TbxFirstname
         {
             get
@@ -64,9 +71,24 @@ namespace FrmMain_LoginForm_PartPachler
                 this.customerID = value;
             }
         }
+        public Stopwatch TimeForNewCusEDITload
+        {
+            get
+            {
+                return (timeForNewCusEDITload);
+            }
+        }
+        public Stopwatch TimeForNewCusEDITsave
+        {
+            get
+            {
+                return (timeForNewCusEDITsave);
+            }
+        }
         #endregion
 
         #region Constructor
+
         public FrmEdit(int mode, List<Customer> cList, int cID=0)
         {
             this.mode = mode;
@@ -77,6 +99,7 @@ namespace FrmMain_LoginForm_PartPachler
         #endregion
 
         #region Load Event
+
         /// <summary>
         /// Loads data from DB and enables groupBoxes, depending on whitch operation 
         /// was chosen in the FrmMainWindow
@@ -88,11 +111,17 @@ namespace FrmMain_LoginForm_PartPachler
             switch(mode)
             {
                 case 0: // Mode -> New
+                    TimeForNewCusEDITload.Reset();
+                    TimeForNewCusEDITload.Start(); // Start Zeitlauf
+
                     foreach (Control ctrl in groupBox2.Controls)
                     {
                         ctrl.Enabled = false;
                     }
                     errorProvider1.Clear();
+
+                    TimeForNewCusEDITload.Stop(); // Ende Zeitlauf
+                                                  //TimeSpan timeSpan = timeForNewCusEDIT.Elapsed;
                     break;
                 case 1: // Mode -> Edit
                     foreach (Control ctrl in groupBox2.Controls)
@@ -134,6 +163,7 @@ namespace FrmMain_LoginForm_PartPachler
         #endregion
 
         #region Click- Events
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (!btnAddClicked)
@@ -168,14 +198,20 @@ namespace FrmMain_LoginForm_PartPachler
                 {
                     #region New Customer
                     case 0: // Mode -> New
-                        if (tbxFirstname.Text != "" && tbxLastname.Text != "" && Customer.ValidateEMailAdress(customerList, tbxEMail.Text) == 0)
+                        TimeForNewCusEDITsave.Reset();
+                        TimeForNewCusEDITsave.Start(); // Start Zeitlauf
+
+                        eMailErrorCode = Customer.ValidateEMailAdress(customerList, tbxEMail.Text);
+
+
+                        if (tbxFirstname.Text != "" && tbxLastname.Text != "" && eMailErrorCode == 0)
                         {
 
                             customerList.Add(new Customer(tbxFirstname.Text, tbxLastname.Text, tbxEMail.Text));
                             errorProvider1.Clear();
                             this.DialogResult = DialogResult.OK;
                         }
-                        else if ((tbxFirstname.Text == "" || tbxLastname.Text == "") && Customer.ValidateEMailAdress(customerList, tbxEMail.Text) == 0)
+                        else if ((tbxFirstname.Text == "" || tbxLastname.Text == "") && eMailErrorCode == 0)
                         {
                             // at least one textbox is emty
                             errorProvider1.Clear();
@@ -186,9 +222,12 @@ namespace FrmMain_LoginForm_PartPachler
                         {
                             // Send Errormassage
                             errorProvider1.Clear();
-                            errorProvider1.SetError(goupBox1,"Error Code: " + Customer.ValidateEMailAdress(customerList, tbxEMail.Text) + 
-                                                             " -> " + errormassages[Math.Abs(Customer.ValidateEMailAdress(customerList, tbxEMail.Text))]);
+                            errorProvider1.SetError(goupBox1,"Error Code: " + eMailErrorCode + 
+                                                             " -> " + errormassages[Math.Abs(eMailErrorCode)]);
                         }
+
+                        TimeForNewCusEDITsave.Stop(); // Ende Zeitlauf
+                        //TimeSpan timeSpan = timeForNewCusEDIT.Elapsed;
                         break;
                     #endregion
                     #region Edit Customer

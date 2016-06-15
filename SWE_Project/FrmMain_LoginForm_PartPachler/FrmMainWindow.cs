@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 
 namespace FrmMain_LoginForm_PartPachler
@@ -20,10 +21,13 @@ namespace FrmMain_LoginForm_PartPachler
 
         private const string PATH_DB = @"..\..\cDB.csv"; //cDB...Customer Database
         public List<Customer> customers = new List<Customer>();
+        Stopwatch timeForNewCusMAIN = new Stopwatch();
+        double tms = 0;
 
         #endregion
 
         #region Constructor, Load-Event and Initialization
+
         public FrmMainWindow()
         {
             InitializeComponent();
@@ -39,8 +43,6 @@ namespace FrmMain_LoginForm_PartPachler
             #endregion
             this.cbxSearch.SelectedIndex = 0;
             this.dtpSearch.Enabled = false;
-
-
         }
 
         /// <summary>
@@ -105,9 +107,8 @@ namespace FrmMain_LoginForm_PartPachler
         }
         #endregion
 
-
-
         #region Security Encrypt-Decrypt
+
         private string EncryptDB()
         {
             string dbEncrypted = "";
@@ -118,6 +119,7 @@ namespace FrmMain_LoginForm_PartPachler
 
             return dbEncrypted;
         }
+
         /// <summary>
         /// Verschlüsselt den Customer String nach Cäsar
         /// </summary>
@@ -141,11 +143,13 @@ namespace FrmMain_LoginForm_PartPachler
                     cus.Balancing.ToString()
                 };
 
-                foreach (string field in fields)
-                {
-                    foreach (char c in field)
+                //foreach (string field in fields)
+                for (int i = 0; i < fields.Length; i++)
                     {
-                        nIndexChar = sAlphabet.IndexOf(c);
+                    //foreach (char c in field)
+                    for(int j=0; j<fields[i].Length;j++)
+                    {
+                        nIndexChar = sAlphabet.IndexOf(fields[i][j]); //c); 
                         if (nIndexChar >= 0)
                         {
                             //Buchstabe/Zeichen enthalten!
@@ -156,7 +160,7 @@ namespace FrmMain_LoginForm_PartPachler
                         else
                         {
                             //Buchstabe/Zeichen nicht enthalten
-                            customerEncrypted += c;
+                            customerEncrypted += fields[i][j]; //c; 
                         }
                     }
 
@@ -196,6 +200,7 @@ namespace FrmMain_LoginForm_PartPachler
         #endregion
 
         #region Read and Write Customer DB
+
         private void WriteCustomerDB()
         {
             StreamWriter file = new StreamWriter(PATH_DB);
@@ -210,6 +215,21 @@ namespace FrmMain_LoginForm_PartPachler
                 file.Close();
             }
         }
+        private void WriteNewCustomerDB()
+        {
+            StreamWriter file = new StreamWriter(PATH_DB, true);
+            try
+            {
+                file.Write(EncryptCustomer(customers[customers.Count - 1]) + "\n");
+                file.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Error: Writing not possible!");
+                file.Close();
+            }
+        }
+
         private List<Customer> ReadCustomerDB()
         {
             StreamReader file = new StreamReader(PATH_DB);
@@ -250,9 +270,8 @@ namespace FrmMain_LoginForm_PartPachler
         }
         #endregion
 
+        #region Click- Events
 
-
-        #region Click- Events:
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if ((tbxSearch.Text != null && tbxSearch.Text.Length > 0) || lbxCustomer.SelectedIndex == 3) // Index 3 = Search for DateLastChanged
@@ -352,8 +371,42 @@ namespace FrmMain_LoginForm_PartPachler
             DialogResult res = form.ShowDialog();
             if (res == DialogResult.OK)
             {
-                this.UpdateView();
-                this.WriteCustomerDB();
+                // Bedingungen wärend der Messungen:
+                // - Task auf priorität Echtzeit
+                // - WLAN ausgeschaltet
+                // - unnötige Tasks beendet
+
+                // Baseline Messung Erkenntnisse:
+                // Erster Customer nach start des Programms dauert aufgrund von InitializeComponent des FrmEdits länger 
+                // Bei 15 Messungen - 14x 9-22ms 
+                //                  -  1x 74ms   -> Ausreißer wird nicht berücksichtigt, höchstwahrscheinlich wurde der Task von Windows unterbrochen
+                // Hauptbestandteil der ca 9-22ms ist 'timeSpanMAIN' danach 'TimeForNewCusEDITsave' und 'TimeForNewCusEDITload' hat nur einen sehr geringen Anteil
+
+                // Verbesserungen:
+                // - statt der Methode UpdateView(), die neue Methode AddNewCustomerToView() 
+                //   hier wird nur der neue Customer in die Listbox lbxCustomer geschrieben immer die ganze Customerlsite
+                // - statt der Methode WriteCustomerDB(), die neue Methode WriteNewCustomerDB()
+                //   hier wird nur der neue Customer in die CSV Datei gespeichert
+                // - for statt foreach
+                // - die E-Mail Adresse wird nur einmal mit der Methode Customer.ValidateEMailAdress(customerList, tbxEMail.Text) überprüft
+                //   das Ergebniss wird auf einer int Variable gespiechert und weiterverwendet.
+                // - csv datei nur ein mal öffenen und erst am ende schließen
+
+                // Optimized Messung Erkenntnisse:
+                timeForNewCusMAIN.Reset();
+                timeForNewCusMAIN.Start(); // Start Zeitlauf
+
+                AddNewCustomerToView();
+                WriteNewCustomerDB();
+
+                timeForNewCusMAIN.Stop(); // Ende Zeitlauf
+                TimeSpan timeSpanMAIN = timeForNewCusMAIN.Elapsed;
+                TimeSpan timeSpanEDITsave = form.TimeForNewCusEDITsave.Elapsed;
+                TimeSpan timeSpanEDITload = form.TimeForNewCusEDITload.Elapsed;
+                
+                tms = timeSpanMAIN.TotalMilliseconds + timeSpanEDITsave.TotalMilliseconds + timeSpanEDITload.TotalMilliseconds;
+
+                tbxTimeToAddCus.Text = "Time: " + tms + "ms";
             }
         }
         private void btnEdit_Click(object sender, EventArgs e)
@@ -410,10 +463,16 @@ namespace FrmMain_LoginForm_PartPachler
                 this.btnSearch.Enabled = true;
                 this.btnBalance.Enabled = true;
                 this.lbxCustomer.Enabled = true;
-                foreach (Customer c in this.customers)
+
+                //foreach (Customer c in this.customers)
+                //{
+                //    this.lbxCustomer.Items.Add(c.ToVisualString());
+                //}
+                for (int i = 0; i < customers.Count; i++)
                 {
-                    this.lbxCustomer.Items.Add(c.ToVisualString());
+                    lbxCustomer.Items.Add(customers[i].ToVisualString());
                 }
+
                 this.lbxCustomer.SelectedIndex = 0;
             }
             else
@@ -423,9 +482,35 @@ namespace FrmMain_LoginForm_PartPachler
                 this.btnSearch.Enabled = false;
                 this.btnBalance.Enabled = false;
                 this.lbxCustomer.Enabled = false;
-                this.lbxCustomer.Items.Add("No Customer stored! Click -Add Customer-");
+                //this.lbxCustomer.Items.Add("No Customer stored! Click -Add Customer-");
+            }
+        }
+        private void AddNewCustomerToView()
+        {
+            if (this.customers.Count > 0)
+            {
+                this.btnBalance.Enabled = true;
+                this.btnEdit.Enabled = true;
+                this.btnSearch.Enabled = true;
+                this.btnBalance.Enabled = true;
+                this.lbxCustomer.Enabled = true;
+
+                lbxCustomer.Items.Add(customers[customers.Count - 1].ToVisualString());
+
+                this.lbxCustomer.SelectedIndex = 0;
+            }
+            else
+            {
+                this.btnBalance.Enabled = false;
+                this.btnEdit.Enabled = false;
+                this.btnSearch.Enabled = false;
+                this.btnBalance.Enabled = false;
+                this.lbxCustomer.Enabled = false;
+                //this.lbxCustomer.Items.Add("No Customer stored! Click -Add Customer-");
             }
         }
         #endregion
+
+        
     }
 }
