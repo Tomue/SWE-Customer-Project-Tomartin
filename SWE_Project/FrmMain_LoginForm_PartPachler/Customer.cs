@@ -8,8 +8,9 @@ namespace FrmMain_LoginForm_PartPachler
 {
     public class Customer
     {
+        #region Membervariables, Variables and Constants
         private static int RunningCustomerNumber = 0;
-        #region Membervariables
+
         private int customerNumber;
         private string firstName;
         private string lastName;
