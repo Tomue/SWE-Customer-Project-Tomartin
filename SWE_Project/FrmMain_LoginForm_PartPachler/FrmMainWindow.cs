@@ -59,6 +59,8 @@ namespace FrmMain_LoginForm_PartPachler
             {
                 MessageBox.Show("Enabled!!");
                 this.InitializeForm();
+                loginForm.Dispose();
+                GC.Collect();
             }
             else
             {
@@ -119,49 +121,166 @@ namespace FrmMain_LoginForm_PartPachler
             return dbEncrypted;
         }
         /// <summary>
-        /// Verschlüsselt den Customer String nach Cäsar
+        /// Encrypts a customer with the method of Cäsar
         /// </summary>
-        /// <param name="cus">Ein Objekt der Klasse Customer not null!</param>
-        /// <returns>Verschlüsselten Customer</returns>
+        /// <param name="cus">Object of class Customer not null!</param>
+        /// <returns>Encrypted customer string</returns>
         private static string EncryptCustomer(Customer cus)
         {
             string customerEncrypted = "";
             if (cus != null)
             {
-                const string sAlphabet =
+                string sAlphabet =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_`{|}~.ÄäöÖüÜ@";
                 int nSizeAlphabet = sAlphabet.Length;
                 int nIndexChar = 0;
-                string[] fields = new string[] {
-                    cus.CustomerNumber.ToString(),
-                    cus.FirstName,
-                    cus.LastName,
-                    cus.EMailAdress,
-                    cus.DateLastChange.ToString(),
-                    cus.Balancing.ToString()
-                };
+                //string[] fields = new string[] {
+                //    cus.CustomerNumber.ToString(),
+                //    cus.FirstName,
+                //    cus.LastName,
+                //    cus.EMailAdress,
+                //    cus.DateLastChange.ToString(),
+                //    cus.Balancing.ToString()
+                //};
 
-                foreach (string field in fields)
+                //==================Version: Optimized Memory
+                #region Customer Number:
+                for (int i = 0; i < cus.CustomerNumber.ToString().Length; i++)
                 {
-                    foreach (char c in field)
+                    nIndexChar = sAlphabet.IndexOf( cus.CustomerNumber.ToString()[i]);
+                    if (nIndexChar >= 0)
                     {
-                        nIndexChar = sAlphabet.IndexOf(c);
-                        if (nIndexChar >= 0)
-                        {
-                            //Buchstabe/Zeichen enthalten!
-                            customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
-                            // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
-                            // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
-                        }
-                        else
-                        {
-                            //Buchstabe/Zeichen nicht enthalten
-                            customerEncrypted += c;
-                        }
+                        //Buchstabe/Zeichen enthalten!
+                        customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                        // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                        // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
                     }
-
-                    customerEncrypted += ";";
+                    else
+                    {
+                        //Buchstabe/Zeichen nicht enthalten
+                        customerEncrypted += cus.CustomerNumber.ToString()[i];
+                    }
                 }
+                #endregion
+                customerEncrypted += ";";
+                #region First Name:
+                for (int i = 0; i < cus.FirstName.Length; i++)
+                {
+                    nIndexChar = sAlphabet.IndexOf(cus.FirstName[i]);
+                    if (nIndexChar >= 0)
+                    {
+                        //Buchstabe/Zeichen enthalten!
+                        customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                        // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                        // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
+                    }
+                    else
+                    {
+                        //Buchstabe/Zeichen nicht enthalten
+                        customerEncrypted += cus.FirstName[i];
+                    }
+                }
+                #endregion
+                customerEncrypted += ";";
+                #region Last Name:
+                for (int i = 0; i < cus.LastName.Length; i++)
+                {
+                    nIndexChar = sAlphabet.IndexOf(cus.LastName[i]);
+                    if (nIndexChar >= 0)
+                    {
+                        //Buchstabe/Zeichen enthalten!
+                        customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                        // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                        // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
+                    }
+                    else
+                    {
+                        //Buchstabe/Zeichen nicht enthalten
+                        customerEncrypted += cus.LastName[i];
+                    }
+                }
+                #endregion
+                customerEncrypted += ";";
+                #region EMailAdress:
+                for (int i = 0; i < cus.EMailAdress.Length; i++)
+                {
+                    nIndexChar = sAlphabet.IndexOf(cus.EMailAdress[i]);
+                    if (nIndexChar >= 0)
+                    {
+                        //Buchstabe/Zeichen enthalten!
+                        customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                        // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                        // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
+                    }
+                    else
+                    {
+                        //Buchstabe/Zeichen nicht enthalten
+                        customerEncrypted += cus.EMailAdress[i];
+                    }
+                }
+                #endregion
+                customerEncrypted += ";";
+                #region DateLastChange:
+                for (int i = 0; i < cus.DateLastChange.ToString().Length; i++)
+                {
+                    nIndexChar = sAlphabet.IndexOf(cus.DateLastChange.ToString()[i]);
+                    if (nIndexChar >= 0)
+                    {
+                        //Buchstabe/Zeichen enthalten!
+                        customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                        // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                        // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
+                    }
+                    else
+                    {
+                        //Buchstabe/Zeichen nicht enthalten
+                        customerEncrypted += cus.DateLastChange.ToString()[i];
+                    }
+                }
+                #endregion
+                customerEncrypted += ";";
+                #region Balancing:
+                for (int i = 0; i < cus.Balancing.ToString().Length; i++)
+                {
+                    nIndexChar = sAlphabet.IndexOf(cus.Balancing.ToString()[i]);
+                    if (nIndexChar >= 0)
+                    {
+                        //Buchstabe/Zeichen enthalten!
+                        customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                        // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                        // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
+                    }
+                    else
+                    {
+                        //Buchstabe/Zeichen nicht enthalten
+                        customerEncrypted += cus.Balancing.ToString()[i];
+                    }
+                }
+                #endregion
+                customerEncrypted += ";";
+                //===================End====================
+
+                //foreach (string field in fields)
+                //{
+                //    foreach (char c in field)
+                //    {
+                //        nIndexChar = sAlphabet.IndexOf(c);
+                //        if (nIndexChar >= 0)
+                //        {
+                //            //Buchstabe/Zeichen enthalten!
+                //            customerEncrypted += sAlphabet[(nIndexChar + 3) % nSizeAlphabet];
+                //            // der Neue Buchstabe ist einfach um 3 Buchstaben versetzt.
+                //            // Wird das Ende des Alphabets erreicht wird von vorne wieder begonnen.
+                //        }
+                //        else
+                //        {
+                //            //Buchstabe/Zeichen nicht enthalten
+                //            customerEncrypted += c;
+                //        }
+                //    }
+
+                //    customerEncrypted += ";";
+                //}
             }
             return customerEncrypted;
         }
@@ -173,7 +292,7 @@ namespace FrmMain_LoginForm_PartPachler
         /// <returns>Customer restored from the string</returns>
         private static Customer DecryptCustomer(string input)
         {
-            const string sAlphabet =
+            string sAlphabet =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_`{|}~.ÄäöÖüÜ@";
             int nSizeAlphabet = sAlphabet.Length;
             int nIndexChar = 0;
@@ -196,6 +315,10 @@ namespace FrmMain_LoginForm_PartPachler
         #endregion
 
         #region Read and Write Customer DB
+        /// <summary>
+        /// Writes all Customers from the actual list
+        /// to a encrypted .csv file
+        /// </summary>
         private void WriteCustomerDB()
         {
             StreamWriter file = new StreamWriter(PATH_DB);
@@ -203,13 +326,25 @@ namespace FrmMain_LoginForm_PartPachler
             {
                 file.Write(this.EncryptDB());
                 file.Close();
+
             }
             catch
             {
                 MessageBox.Show("Error: Writing not possible!");
                 file.Close();
             }
+            finally
+            {
+                file.Dispose();
+                GC.Collect();
+            }
         }
+
+        /// <summary>
+        /// Reads the list of customers from the encrypted csv-file with
+        /// the path specified in PATH_DB
+        /// </summary>
+        /// <returns>List of Customers restored from file</returns>
         private List<Customer> ReadCustomerDB()
         {
             StreamReader file = new StreamReader(PATH_DB);
@@ -221,6 +356,8 @@ namespace FrmMain_LoginForm_PartPachler
                 cList.Add(DecryptCustomer(line));
             }
             file.Close();
+            file.Dispose();
+            GC.Collect();
             return cList;
         }
 
@@ -234,14 +371,19 @@ namespace FrmMain_LoginForm_PartPachler
         {
             if (!string.IsNullOrEmpty(input))
             {
+                //string[] fields = input.Split(';');
+                //int CustomerNumber = Convert.ToInt32(fields[0]);
+                //string rFirstName = fields[1];
+                //string rLastName = fields[2];
+                //string rEmailAdress = fields[3];
+                //DateTime rDateLastChanged = Convert.ToDateTime(fields[4]);
+                //double rBalancing = Convert.ToDouble(fields[5]);
+                //return new Customer(rFirstName, rLastName, rEmailAdress, rDateLastChanged, rBalancing);
+
+                //==========Method of optimized memory:
                 string[] fields = input.Split(';');
-                int CustomerNumber = Convert.ToInt32(fields[0]);
-                string rFirstName = fields[1];
-                string rLastName = fields[2];
-                string rEmailAdress = fields[3];
-                DateTime rDateLastChanged = Convert.ToDateTime(fields[4]);
-                double rBalancing = Convert.ToDouble(fields[5]);
-                return new Customer(rFirstName, rLastName, rEmailAdress, rDateLastChanged, rBalancing);
+                return new Customer(fields[1], fields[2], fields[3], Convert.ToDateTime(fields[4]), Convert.ToDouble(fields[5]));
+                //================End===========
             }
             else
             {
@@ -355,6 +497,8 @@ namespace FrmMain_LoginForm_PartPachler
                 this.UpdateView();
                 this.WriteCustomerDB();
             }
+            form.Dispose();
+            GC.Collect();
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -369,6 +513,8 @@ namespace FrmMain_LoginForm_PartPachler
                 this.WriteCustomerDB();
                 this.UpdateView();
             }
+            editForm.Dispose();
+            GC.Collect();
         }
         private void btnBalance_Click(object sender, EventArgs e)
         {
@@ -383,10 +529,12 @@ namespace FrmMain_LoginForm_PartPachler
                 this.WriteCustomerDB();
                 this.UpdateView();
             }
+            editForm.Dispose();
+            GC.Collect();
         }
         #endregion
 
-        #region Other Form Events
+        #region Other Form Events and Methods
         private void cbxSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbxSearch.SelectedIndex == 3)

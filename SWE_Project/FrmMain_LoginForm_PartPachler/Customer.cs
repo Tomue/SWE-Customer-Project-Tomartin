@@ -280,16 +280,26 @@ namespace FrmMain_LoginForm_PartPachler
 
             if (eMailAdress.IndexOf('@') > 0)
             {
-                char[] temp = eMailAdress.ToCharArray(0,
-                                       eMailAdress.IndexOf('@'));
+                //char[] temp = eMailAdress.ToCharArray(0,
+                //                       eMailAdress.IndexOf('@'));
 
-                for (int i = 0; i < temp.Length; i++)
+                //for (int i = 0; i < temp.Length; i++)
+                //{
+                //    if (char.IsLetter(temp[i]))
+                //    {
+                //        result = true;
+                //    }
+                //}
+                //=========optimized for memory=========
+                for (int i = 0; i < eMailAdress.ToCharArray(0,eMailAdress.IndexOf('@')).Length; i++)
                 {
-                    if (char.IsLetter(temp[i]))
+                    if (char.IsLetter(eMailAdress.ToCharArray(0,
+                                       eMailAdress.IndexOf('@'))[i]))
                     {
                         result = true;
                     }
                 }
+                //==========end
             }
 
             return (result);
@@ -334,17 +344,27 @@ namespace FrmMain_LoginForm_PartPachler
                                                         "+","-","/","=",
                                                         "?","^"," ","`",
                                                         "{","|","}","~","_","@"};
-            char[] temp = eMailAdress.ToCharArray();
+            //char[] temp = eMailAdress.ToCharArray();
 
-            for (int i = 0; i < temp.Length; i++)
+            //for (int i = 0; i < temp.Length; i++)
+            //{
+            //    if (!char.IsLetterOrDigit(temp[i])
+            //        && !validSpecialSymbols.Contains(temp[i].ToString()))
+            //    {
+            //        result = false;
+            //    }
+            //}
+
+            //==================optimized for memory=========
+            for (int i = 0; i < eMailAdress.ToCharArray().Length; i++)
             {
-                if (!char.IsLetterOrDigit(temp[i])
-                    && !validSpecialSymbols.Contains(temp[i].ToString()))
+                if (!char.IsLetterOrDigit(eMailAdress.ToCharArray()[i])
+                    && !validSpecialSymbols.Contains(eMailAdress.ToCharArray()[i].ToString()))
                 {
                     result = false;
                 }
             }
-
+            //=====================end====================
             return (result);
         }
 
