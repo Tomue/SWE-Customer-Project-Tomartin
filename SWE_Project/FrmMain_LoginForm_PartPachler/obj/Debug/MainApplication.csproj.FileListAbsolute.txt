@@ -66,3 +66,6 @@ C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMai
 C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMain_LoginForm_PartPachler\obj\Debug\FrmMain_LoginForm_PartPachler.FrmMainWindow.resources
 C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMain_LoginForm_PartPachler\obj\Debug\FrmMain_LoginForm_PartPachler.Properties.Resources.resources
 C:\Users\tobia\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMain_LoginForm_PartPachler\obj\Debug\MainApplication.csproj.GenerateResource.Cache
+C:\Users\Pachler Martin\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMain_LoginForm_PartPachler\bin\Debug\FrmMain_LoginForm_PartPachler.exe.config
+C:\Users\Pachler Martin\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMain_LoginForm_PartPachler\obj\Debug\FrmMain_LoginForm_PartPachler.exe
+C:\Users\Pachler Martin\Documents\GitHub\SWE-Customer-Project-Tomartin\SWE_Project\FrmMain_LoginForm_PartPachler\obj\Debug\FrmMain_LoginForm_PartPachler.pdb

@@ -387,7 +387,6 @@ namespace FrmMain_LoginForm_PartPachler
 
             return (result);
         }
-        //Pachler Martin:
         #endregion
 
     }

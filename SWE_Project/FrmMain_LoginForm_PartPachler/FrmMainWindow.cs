@@ -167,10 +167,10 @@ namespace FrmMain_LoginForm_PartPachler
         }
 
         /// <summary>
-        /// Entschlüsselt den Customer aus einem verschlüsselten String
+        /// Decrypts a customer string and generates a new customer with the data
         /// </summary>
-        /// <param name="input">string, der einen verschlüsselten Customer enthält</param>
-        /// <returns>Customer aus Verschlüsseltem Datensatz hergestellt</returns>
+        /// <param name="input">string that was created by the encrypt customer method</param>
+        /// <returns>Customer restored from the string</returns>
         private static Customer DecryptCustomer(string input)
         {
             const string sAlphabet =
