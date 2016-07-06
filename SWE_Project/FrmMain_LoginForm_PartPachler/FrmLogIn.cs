@@ -12,12 +12,18 @@ namespace FrmMain_LoginForm_PartPachler
 {
     public partial class FrmLogIn : Form
     {
+        #region Membervariables, Variables and Constants
         private string password = "pw123";
+        #endregion
+
+        #region Constructor
         public FrmLogIn()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Click- Events
         private void btnOK_Click(object sender, EventArgs e)
         {
             string pwInput = this.tbxPassword.Text;
@@ -33,5 +39,6 @@ namespace FrmMain_LoginForm_PartPachler
                 this.tbxPassword.Focus();
             }
         }
+        #endregion
     }
 }
