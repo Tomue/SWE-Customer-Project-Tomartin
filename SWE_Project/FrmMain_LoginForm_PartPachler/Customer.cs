@@ -204,68 +204,47 @@ namespace FrmMain_LoginForm_PartPachler
         {
             int errorCode = 0;
 
-            if (EMailAdressContainsExactlyOneAt(eMailAdress))
-            {
-                if (ContainsDotAfterAt(eMailAdress))
-                {
-                    if (LengthOfFinalPart(eMailAdress) >= 2
-                        && LengthOfFinalPart(eMailAdress) <= 4)
-                    {
-                        if (FinalPartsContainsOnlyLetters(eMailAdress))
-                        {
-                            if (ContainsCharacterBeforeAt(eMailAdress))
-                            {
-                                if (NoDotsAtInvalidPosition(eMailAdress))
-                                {
-                                    if (NoInvalidSymbols(eMailAdress))
-                                    {
-                                        //Adress is valid
-                                        if (EMailAdressNotListedYet(customerList, eMailAdress))
-                                        {
-                                            //Adress is new in List
-                                            errorCode = 0;
-                                        }
-                                        else
-                                        {
-                                            //Adress is Listed
-                                            errorCode = -8;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        errorCode = -7;
-                                    }
-                                }
-                                else
-                                {
-                                    errorCode = -6;
-                                }
-                            }
-                            else
-                            {
-                                errorCode = -5;
-                            }
-                        }
-                        else
-                        {
-                            errorCode = -4;
-                        }
-                    }
-                    else
-                    {
-                        errorCode = -3;
-                    }
-                }
-                else
-                {
-                    errorCode = -2;
-                }
-            }
-            else
+            if (!EMailAdressContainsExactlyOneAt(eMailAdress))
             {
                 errorCode = -1;
             }
 
+            if (!ContainsDotAfterAt(eMailAdress) && errorCode == 0)
+            {
+                errorCode = -2;
+            }
+
+            if (!(LengthOfFinalPart(eMailAdress) >= 2
+                    && LengthOfFinalPart(eMailAdress) <= 4)
+                && errorCode == 0)
+            {
+                errorCode = -3;
+            }
+
+            if (!FinalPartsContainsOnlyLetters(eMailAdress) && errorCode == 0)
+            {
+                errorCode = -4;
+            }
+
+            if (!ContainsCharacterBeforeAt(eMailAdress) && errorCode == 0)
+            {
+                errorCode = -5;
+            }
+
+            if (!NoDotsAtInvalidPosition(eMailAdress) && errorCode == 0)
+            {
+                errorCode = -6;
+            }
+
+            if (!NoInvalidSymbols(eMailAdress) && errorCode == 0)
+            {
+                errorCode = -7;
+            }
+
+            if (!EMailAdressNotListedYet(customerList, eMailAdress) && errorCode == 0)
+            {
+                errorCode = -8;
+            }
 
             return (errorCode);
         }
