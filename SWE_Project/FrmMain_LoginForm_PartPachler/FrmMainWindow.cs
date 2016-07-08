@@ -376,23 +376,6 @@ namespace FrmMain_LoginForm_PartPachler
                 // - WLAN ausgeschaltet
                 // - unnötige Tasks beendet
 
-                // Baseline Messung Erkenntnisse:
-                // Erster Customer nach start des Programms dauert aufgrund von InitializeComponent des FrmEdits länger 
-                // Bei 15 Messungen - 14x 9-22ms 
-                //                  -  1x 74ms   -> Ausreißer wird nicht berücksichtigt, höchstwahrscheinlich wurde der Task von Windows unterbrochen
-                // Hauptbestandteil der ca 9-22ms ist 'timeSpanMAIN' danach 'TimeForNewCusEDITsave' und 'TimeForNewCusEDITload' hat nur einen sehr geringen Anteil
-
-                // Verbesserungen:
-                // - statt der Methode UpdateView(), die neue Methode AddNewCustomerToView() 
-                //   hier wird nur der neue Customer in die Listbox lbxCustomer geschrieben immer die ganze Customerlsite
-                // - statt der Methode WriteCustomerDB(), die neue Methode WriteNewCustomerDB()
-                //   hier wird nur der neue Customer in die CSV Datei gespeichert
-                // - for statt foreach
-                // - die E-Mail Adresse wird nur einmal mit der Methode Customer.ValidateEMailAdress(customerList, tbxEMail.Text) überprüft
-                //   das Ergebniss wird auf einer int Variable gespiechert und weiterverwendet.
-                // - csv datei nur ein mal öffenen und erst am ende schließen
-
-                // Optimized Messung Erkenntnisse:
                 timeForNewCusMAIN.Reset();
                 timeForNewCusMAIN.Start(); // Start Zeitlauf
 
