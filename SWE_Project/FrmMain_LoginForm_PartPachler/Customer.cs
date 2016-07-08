@@ -209,39 +209,38 @@ namespace FrmMain_LoginForm_PartPachler
                 errorCode = -1;
             }
 
-            if (!ContainsDotAfterAt(eMailAdress) && errorCode == 0)
+            if (!ContainsDotAfterAt(eMailAdress))
             {
                 errorCode = -2;
             }
 
             if (!(LengthOfFinalPart(eMailAdress) >= 2
-                    && LengthOfFinalPart(eMailAdress) <= 4)
-                && errorCode == 0)
+                  && LengthOfFinalPart(eMailAdress) <= 4))
             {
                 errorCode = -3;
             }
 
-            if (!FinalPartsContainsOnlyLetters(eMailAdress) && errorCode == 0)
+            if (!FinalPartsContainsOnlyLetters(eMailAdress))
             {
                 errorCode = -4;
             }
 
-            if (!ContainsCharacterBeforeAt(eMailAdress) && errorCode == 0)
+            if (!ContainsCharacterBeforeAt(eMailAdress))
             {
                 errorCode = -5;
             }
 
-            if (!NoDotsAtInvalidPosition(eMailAdress) && errorCode == 0)
+            if (!NoDotsAtInvalidPosition(eMailAdress))
             {
                 errorCode = -6;
             }
 
-            if (!NoInvalidSymbols(eMailAdress) && errorCode == 0)
+            if (!NoInvalidSymbols(eMailAdress))
             {
                 errorCode = -7;
             }
 
-            if (!EMailAdressNotListedYet(customerList, eMailAdress) && errorCode == 0)
+            if (!EMailAdressNotListedYet(customerList, eMailAdress))
             {
                 errorCode = -8;
             }
